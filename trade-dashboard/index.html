@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<!--==This web page deign for Export Import Visualizaton ==-->
+<!--==================== Author : Annie ===================-->
+<!--============= Code write in : HTML & CSS  ==============-->
+
+<head>
+    <title>World Commercial Trade Dashboard</title>
+    <!--====================Link to CSS====================-->
+    <link rel="stylesheet" href="Visulaization_export_import.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <span class="logo">&#124AU&#124 </span>
+        <span class="dashboard">Commercial Trade Dashboard</span>
+    </div>
+
+    <div class="grid-wrapper">
+        <div class="definition">
+            <div class="title">
+                Introduction and Data Definition
+            </div>
+            <div class="body">
+                <p>International trade has occurred since the earliest civilisations began trading, but in recent years
+                    international
+                    trade has become increasingly important with a larger share of GDP devoted to exports and imports.
+                    Different countries are endowed with
+                    different assets and natural resources: land, labor, capital, and technology, etc. Global trade
+                    enables different countries to sell the goods, which
+                    they can efficiently produce, in different countries thereby making whole supply chain very
+                    efficient and cost effective.
+                </p>
+                <p>
+                    I have created this dashboard to study the international trade data for commercial goods using
+                    various d3 Visualizaton. The technologies used
+                    to create this dashboard
+                    are HTML5, CSS3, JavaScript, d3.js. The data used to create this dashboard is sourced from
+                    <a href="https://comtrade.un.org/data/" target="_blank">UN Comtrade Database</a>.
+                </p>
+                <p>
+                    A yearly report can be downloaded from UN Comtrade Database website containing monetary value of all
+                    Commercial goods exported and imported by a country to/from
+                    world. I downloaded four reports from year 2017-2020 and combined them into one csv named "all.csv".
+                    "all.csv" will enable us to make almost all
+                    the Visualizatons that we have learnt in the class.
+                    To create a Force layout graph with countries as nodes and trade value between them as link, I had
+                    to download multiple reports from the same source
+                    since UN comtrade Database restricts us to download trade of all countries either with the world or
+                    five selected countries. I wrote a script in JavaScript
+                    language to download the report with 5 countries in every iteration of a loop for every year ranging
+                    from 2017-2020.
+                </p>
+                <p>
+                    There are around 35 columns in report but the columns which are of interest to us for this dashboard
+                    are listed in below table:
+                <div class="table_wrapper">
+                    <table>
+                        <tr>
+                            <th>Column Name</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>Trade Flow</td>
+                            <td>This column indicates the flow of trade from Reporter country. Possible values are
+                                Import or
+                                Export in this column</td>
+                        </tr>
+                        <tr>
+                            <td>Year</td>
+                            <td>This column indicates the year for the reported trade. For our case, we have limited it
+                                to 4
+                                values(2017-2020)</td>
+                        </tr>
+                        <tr>
+                            <td>Trade Value (US$)</td>
+                            <td>This column specifies the value of trade in US dollars</td>
+                        </tr>
+                        <tr>
+                            <td>Reporter</td>
+                            <td>This column specifies the name of the reporter country</td>
+                        </tr>
+                        <tr>
+                            <td>Reporter ISO</td>
+                            <td>This column specifies the ISO code of trade reporter country</td>
+                        </tr>
+                        <tr>
+                            <td>Partner</td>
+                            <td>This column specifies the name of the partner country with whom trade has happened</td>
+                        </tr>
+                        <tr>
+                            <td>Partner ISO</td>
+                            <td>This column specifies the ISO code of partner country with which trade has happened</td>
+                        </tr>
+                    </table>
+                </div>
+                </p>
+            </div>
+        </div>
+
+
+        <div class="motivation">
+            <div class="title">
+                Motivation
+            </div>
+            <div class="body">
+                <p>
+                    There was a world event that had happened in late March 2021. This particular event was able to grab
+                    the attention of all the countries of
+                    the world.
+                    It had hard hit the wall street and Stock Market. As an investor in the market, I could feel the
+                    pain of this event through my stock portfolio. And
+                    the event was - stucked cargo ship in Egypt's Suez Canal.
+                </p>
+                <p>
+                    This event made me think how dependent every country is on the world. It made me ponder a lot of
+                    questions like
+                    Which countries are the greatest exporter/importer of goods? Which country is hit hard with this
+                    event?
+                    Is there any country which is self-reliant? This event and all these question became a motivation
+                    for me to glance
+                    thorough international trade data and I used this opportunity of final project to explorer this data
+                    and make some cool
+                    and awesome visualizations on this data.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="questions">
+            <div class="title">
+                Questions to Explore:
+            </div>
+            <div class="body">
+                <ol>
+                    <li>
+                        Which country is the biggest exporter/importer of the goods? We can make use of doughnut/pie
+                        chart to answer this question.
+                    </li>
+                    <li>
+                        Which countries are the top exporters/importers of the world? We can make use of doughnut/pie
+                        chart to answer this question.
+                    </li>
+                    <li>
+                        How the export/imports has progressed for a country from 2017-2020? Did it increase/declined?
+                        Bar chart can be used to visualize and answer
+                        this one.
+                    </li>
+                    <li>
+                        What countries have good bilateral relationship in terms of international trade? We can use
+                        Force layout graph to
+                        explore the relationship here.
+                    </li>
+                    <li>
+                        How highest trade doing countries are geographically spread? Are they close to each other? Does
+                        distance matter for global trades?
+                        We can make use of choropleth to answer this question.
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+
+        <div class="filters">
+            <div>
+                <label for="tradeType">Choose Trade Flow Type:</label>
+                <select name="tradeType" id="tradeType">
+                    <option value="Import">Import</option>
+                    <option value="Export">Export</option>
+                </select>
+
+                <label for="year">Choose Year:</label>
+                <select name="year" id="year">
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="map">
+            <div class="title">
+                Choropleth showing the country's dominance in world trade
+            </div>
+            <svg id="choropleth"></svg>
+        </div>
+
+
+        <div class="pie_chart_wrapper">
+            <div class="title">
+                Doughnut Chart showing top 5 countries by Import/Export
+            </div>
+            <svg id="pie_chart"></svg>
+        </div>
+
+
+        <div class="bar_chart">
+            <div class="title">
+                Bar Chart showing the trend of international trade for a country
+            </div>
+            <div>
+                <label for="country">Choose Country:</label>
+                <select name="country" id="country">
+                </select>
+            </div>
+            <br />
+            <svg id="bar_chart"></svg>
+        </div>
+
+        <div class="force_layout">
+            <div class="title">
+                Force Layout Graph showing the bilateral trade relationship between top 20 countries
+            </div>
+            <svg id="force"></svg>
+        </div>
+
+        <div class="conclusion">
+            <div class="title">
+                Conclusion
+            </div>
+
+            <div class="body">
+                Using the learning from my visualization class, I am able to create cool and awesome d3 visualization on
+                internationl
+                trade data. And at the same time, I am able to answer the question we asked ourselves before even
+                drawing this visualization.
+                <br/><br/>
+                Answers to above question from our visualizations are:
+                <ol>
+                    <li>
+                        China is the biggest exporter and US is the biggest importer in almost all the years ranging
+                        from 2017-2020.
+                    </li>
+                    <li>
+                        World's top importers/exporters are China, USA, Germany, Japan, and UK as evident from Doughnut
+                        Chart.
+                    </li>
+                    <li>
+                        Overall the trade import/exports of almost every country has increased since 2017. It's clearly evident in 
+                        bar chart. We can see a little decline for some countries in 2020 that may be attribtued to Covid19.
+                    </li>
+                    <li>
+                        From the force layout connection graph, we can see that US, China, Germany have very good bilateral relationship 
+                        in terms of trade.
+                    </li>
+                    <li>
+                        Choropleth visualization shows that USA and China, two major trade leaders, are geographically very far apart. And
+                        at the same time, Germany, UK or Germany and USA are not that far as compared to China. But that hasn't hampered the trade
+                        between these countries which signifies that distance does not impact trade between two countries very significantly.
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="reference">
+            <div class="title">
+                Reference
+            </div>
+
+            <div class="body">
+                <ol>
+                    <li>
+                        UN Comtrade Database: <a href="https://comtrade.un.org/data/" target="_blank">UN Comtrade Database</a>
+                    </li>
+                </ol>
+            </div>
+    </div>
+    <script type="text/javascript" src="d3.js"></script>
+    <script type="text/javascript" src="world_trade.js"></script>
+</body>
+
+</html>
